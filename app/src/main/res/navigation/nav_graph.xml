@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_view"
+    app:startDestination="@id/mainQuizFragment">
+    <fragment
+        android:id="@+id/mainQuizFragment"
+        android:name="com.example.vocabulary.fragments.MainQuizFragment"
+        android:label="fragment_main_quiz"
+        tools:layout="@layout/fragment_main_quiz" >
+        <action
+            android:id="@+id/action_mainQuizFragment_to_quizDetailFragment"
+            app:destination="@id/quizDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizDetailFragment"
+        android:name="com.example.vocabulary.fragments.QuizDetailFragment"
+        android:label="fragment_quiz_detail"
+        tools:layout="@layout/fragment_quiz_detail" >
+        <action
+            android:id="@+id/action_quizDetailFragment_to_exampleDetailFragment"
+            app:destination="@id/exampleDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exampleDetailFragment"
+        android:name="com.example.vocabulary.fragments.ExampleDetailFragment"
+        android:label="fragment_example_detail"
+        tools:layout="@layout/fragment_example_detail" />
+</navigation>
