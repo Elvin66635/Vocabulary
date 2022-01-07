@@ -26,5 +26,9 @@
         android:id="@+id/exampleDetailFragment"
         android:name="com.example.vocabulary.fragments.ExampleDetailFragment"
         android:label="fragment_example_detail"
-        tools:layout="@layout/fragment_example_detail" />
+        tools:layout="@layout/fragment_example_detail" >
+        <action
+            android:id="@+id/action_exampleDetailFragment_to_mainQuizFragment"
+            app:destination="@id/mainQuizFragment" />
+    </fragment>
 </navigation>

@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#4EFE33</color>
     <color name="red">#FF1212</color>
-    <color name="quizBackground">#67B5739A</color>
+    <color name="quizBackground">#67C7C3C5</color>
     <color name="quizQuestion">#BDBEC8FF</color>
 </resources>

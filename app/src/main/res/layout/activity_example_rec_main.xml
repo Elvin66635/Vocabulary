@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="@color/quizBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,6 +13,8 @@
 
 
         <androidx.fragment.app.FragmentContainerView
+            android:layout_margin="8dp"
+            android:padding="8dp"
             android:id="@+id/nav_host_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"

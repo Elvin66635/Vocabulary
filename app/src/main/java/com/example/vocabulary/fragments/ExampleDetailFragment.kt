@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.vocabulary.R
 import com.example.vocabulary.databinding.FragmentExampleDetailBinding
 import com.example.vocabulary.databinding.FragmentMainQuizBinding
@@ -28,6 +29,14 @@ class ExampleDetailFragment : Fragment() {
 
         val totalQuestions = arguments?.getInt("total_questions",0)
         val correctAnswer =  arguments?.getInt("correct_answers",0)
+
+        val bundle = Bundle()
+        if (correctAnswer != null) {
+            bundle.putInt("correct_answers", correctAnswer)
+        }
+
         binding?.resultTxt?.text = "Your score is $correctAnswer out of $totalQuestions"
+
+        findNavController().navigate(R.id.action_exampleDetailFragment_to_mainQuizFragment, bundle)
     }
 }
