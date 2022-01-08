@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
+import android.media.MediaPlayer
 import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Parcelable
@@ -35,8 +36,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
 
     private var mCurrentPosition: Int = 1
 
-    //   private var mQuestionsList: ArrayList<Topic>? = null
-    // private var mQuestionsList: ArrayList<Topic>? = null
     private var mQuestionsList: ArrayList<QuizDetails>? = null
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswers: Int = 0
@@ -98,8 +97,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
 
     @SuppressLint("ResourceAsColor")
     override fun onClick(v: View?) {
-      //  noVisibleView()
-       // checkedPressOptions()
         when (v?.id) {
             R.id.optionOneTxt -> {
                 selectedOptionView(binding.optionOneTxt, 1)
@@ -114,13 +111,15 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
 
 
             R.id.submitBtn -> {
-                if (mSelectedOptionPosition == 0)  {
 
+                isClickableOtherOptions(true)
+                if (mSelectedOptionPosition == 0) {
                     mCurrentPosition++
                     when {
                         mCurrentPosition <= mQuestionsList?.size!! -> {
 
                             setQuestion()
+                            noVisibleView()
                         }
                         else -> {
                             val bundle = Bundle()
@@ -134,29 +133,36 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
                         }
                     }
                 } else {
-                    noVisibleView()
+                    isClickableOtherOptions(false)
                     val question = mQuestionsList?.get(mCurrentPosition - 1)
                     if (question!!.correctAnswer != mSelectedOptionPosition) {
-                        visibleView()
-                  //      answerView(mSelectedOptionPosition, R.drawable.wrong_option_border)
 
+                        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.error)
+                        mediaPlayer.start()
+                        binding.view.visibility = View.VISIBLE
+                        binding.view.setBackgroundColor(Color.parseColor("#CD5C5C"))
+                        binding.trueOrWrongText.text = "Неверно"
                     } else {
+                        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.success)
+                        mediaPlayer.start()
+                        binding.view.visibility = View.VISIBLE
+                        binding.view.setBackgroundColor(Color.GREEN)
+                        binding.trueOrWrongText.text = "Верно"
                         mCorrectAnswers++
                     }
-                  //  answerView(question.correctAnswer, R.drawable.correct_option_border)
-                  //  visibleView()
                     if (mCurrentPosition == mQuestionsList?.size) {
                         binding.submitBtn.text = "Завершить"
-
+                        visibleView()
                     } else {
-                        binding.view.setBackgroundColor(Color.GREEN)
+
                         binding.submitBtn.text = "Дальше"
                     }
-                    noVisibleView()
                     mSelectedOptionPosition = 0
                 }
             }
+
         }
+
     }
 
     private fun answerView(answer: Int, drawableView: Int) {
@@ -175,7 +181,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
                     ContextCompat.getDrawable(requireContext(), drawableView)
             }
         }
-      //  visibleView()
     }
 
     private fun selectedOptionView(tv: TextView, selectedOptionNumber: Int) {
@@ -189,13 +194,14 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setQuestion() {
+        // noVisibleView()
+
         val items = mQuestionsList
         val question = items!![mCurrentPosition - 1]
-
         defaultOptionsView()
         if (mCurrentPosition == items!!.size) {
-            Log.d(TAG, "setQuestion: ${items.size}")
             binding.submitBtn.text = "Завершить"
+
         } else {
             binding.submitBtn.text = "Подтвердить"
         }
@@ -210,36 +216,46 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
                 binding.optionOneTxt.text = question.optionOne
                 binding.optionTwoTxt.text = question.optionTwo
                 binding.optionThreeTxt.text = question.optionThree
-                Log.d(TAG, "FOR: $details")
             }
         }
     }
-    private fun checkedPressOptions(){
+
+    private fun checkedPressOptions() {
         if (binding.optionOneTxt.isPressed ||
             binding.optionTwoTxt.isPressed ||
-            binding.optionThreeTxt.isPressed){
+            binding.optionThreeTxt.isPressed
+        ) {
             binding.submitBtn.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.submitBtn.visibility = View.INVISIBLE
         }
     }
-    private fun isVisibleOptions(){
 
-        binding.optionOneTxt.visibility = View.INVISIBLE
-        binding.optionTwoTxt.visibility = View.INVISIBLE
-        binding.optionThreeTxt.visibility = View.INVISIBLE
+    private fun isClickableOtherOptions(clickable: Boolean): Boolean {
+        binding.optionOneTxt.isClickable = clickable
+        binding.optionTwoTxt.isClickable = clickable
+        binding.optionThreeTxt.isClickable = clickable
+        return clickable
     }
-    private fun visibleView(){
-        binding.view.visibility = View.VISIBLE
-        if (mSelectedOptionPosition == mCorrectAnswers){
+
+    private fun visibleView() {
+        binding.constraintFragmentDetailQuiz.isClickable = false
+        if (mSelectedOptionPosition == mCorrectAnswers) {
+            binding.view.visibility = View.VISIBLE
             binding.view.setBackgroundColor(Color.GREEN)
             binding.trueOrWrongText.text = "Верно"
-        }else{
+        } else if (mSelectedOptionPosition != mCorrectAnswers) {
+            binding.view.visibility = View.VISIBLE
+            binding.view.setBackgroundColor(Color.parseColor("#CD5C5C"))
+            binding.trueOrWrongText.text = "Неверно"
+        } else {
+            binding.view.visibility = View.VISIBLE
             binding.view.setBackgroundColor(Color.RED)
             binding.trueOrWrongText.text = "Неверно"
         }
     }
-    private fun noVisibleView(){
+
+    private fun noVisibleView() {
         binding.view.visibility = View.GONE
     }
 }

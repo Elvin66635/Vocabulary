@@ -1,6 +1,7 @@
 package com.example.vocabulary.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.example.vocabulary.databinding.FragmentExampleDetailBinding
 import com.example.vocabulary.databinding.FragmentMainQuizBinding
 import com.example.vocabulary.utils.Constants
 
+private const val TAG = "ExampleDetailFragment"
 class ExampleDetailFragment : Fragment() {
     private var binding: FragmentExampleDetailBinding? = null
 
@@ -36,7 +38,7 @@ class ExampleDetailFragment : Fragment() {
         }
 
         binding?.resultTxt?.text = "Your score is $correctAnswer out of $totalQuestions"
-
+        Log.d(TAG, "onViewCreated: $binding?.resultTxt?.text = \"Your score is $correctAnswer out of $totalQuestions\"")
         findNavController().navigate(R.id.action_exampleDetailFragment_to_mainQuizFragment, bundle)
     }
 }
