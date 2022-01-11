@@ -5,11 +5,20 @@ import android.os.Parcelable
 
 data class Topic(
     val id: Int,
-    val question: String,
+    val question: String?,
     val image: String?,
     val title: String?,
     val quizDetails: ArrayList<QuizDetails>
 ) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        TODO("quizDetails")
+    ) {
+    }
+
     override fun describeContents(): Int {
         TODO("Not yet implemented")
     }
@@ -17,11 +26,22 @@ data class Topic(
     override fun writeToParcel(p0: Parcel?, p1: Int) {
         TODO("Not yet implemented")
     }
+
+    companion object CREATOR : Parcelable.Creator<Topic> {
+        override fun createFromParcel(parcel: Parcel): Topic {
+            return Topic(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Topic?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
 
 
 data class QuizDetails(
     val question: String?,
+    val imageDetail: String?,
     val optionOne: String?,
     val optionTwo: String?,
     val optionThree: String?,
@@ -29,6 +49,7 @@ data class QuizDetails(
     val correctAnswer: Int,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -50,6 +71,7 @@ data class QuizDetails(
     override fun describeContents(): Int {
         return 0
     }
+
 
     companion object CREATOR : Parcelable.Creator<QuizDetails> {
         override fun createFromParcel(parcel: Parcel): QuizDetails {

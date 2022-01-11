@@ -1,41 +1,37 @@
 package com.example.vocabulary.fragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.MediaPlayer
-import android.opengl.Visibility
 import android.os.Bundle
-import android.os.Parcelable
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.example.vocabulary.R
-import com.example.vocabulary.ResultActivity
 import com.example.vocabulary.databinding.FragmentQuizDetailBinding
-import com.example.vocabulary.model.Question
 import com.example.vocabulary.model.QuizDetails
-import com.example.vocabulary.model.Topic
-import com.example.vocabulary.utils.Constants
-import kotlin.properties.Delegates
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.math.round
 
 private const val TAG = "QuizDetailFragment"
 
-class QuizDetailFragment : Fragment(), View.OnClickListener {
+class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitListener {
     private lateinit var binding: FragmentQuizDetailBinding
-
+    private var tts: TextToSpeech? = null
 
     private var mCurrentPosition: Int = 1
-
     private var mQuestionsList: ArrayList<QuizDetails>? = null
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswers: Int = 0
@@ -51,7 +47,7 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentQuizDetailBinding.inflate(inflater, container, false)
         return binding.root
@@ -70,13 +66,15 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
         correctAnswer = arguments?.getInt("correctAnswer")!!
         mQuestionsList = arguments?.getParcelableArrayList("list")
 
-        Log.d(TAG, "onViewCreated: $mQuestionsList")
 
         setQuestion()
         binding.optionOneTxt.setOnClickListener(this)
         binding.optionTwoTxt.setOnClickListener(this)
         binding.optionThreeTxt.setOnClickListener(this)
         binding.submitBtn.setOnClickListener(this)
+        binding.speachText.setOnClickListener(this)
+
+        tts = TextToSpeech(requireContext(), this)
     }
 
     private fun defaultOptionsView() {
@@ -109,6 +107,9 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
                 selectedOptionView(binding.optionThreeTxt, 3)
             }
 
+            R.id.speachText -> {
+                speakOut()
+            }
 
             R.id.submitBtn -> {
 
@@ -117,7 +118,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
                     mCurrentPosition++
                     when {
                         mCurrentPosition <= mQuestionsList?.size!! -> {
-
                             setQuestion()
                             noVisibleView()
                         }
@@ -136,25 +136,36 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
                     isClickableOtherOptions(false)
                     val question = mQuestionsList?.get(mCurrentPosition - 1)
                     if (question!!.correctAnswer != mSelectedOptionPosition) {
-
+                        binding.falseView.visibility = View.VISIBLE
+                        val animation = AnimationUtils.loadAnimation(
+                            requireContext(),
+                            R.anim.nav_default_exit_anim
+                        )
+                        binding.falseView.startAnimation(animation)
                         val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.error)
                         mediaPlayer.start()
-                        binding.view.visibility = View.VISIBLE
-                        binding.view.setBackgroundColor(Color.parseColor("#CD5C5C"))
-                        binding.trueOrWrongText.text = "Неверно"
+                        //   binding.view.setBackgroundColor(Color.parseColor("#CD5C5C"))
+                        binding.wrongText.text = "Неверно"
+
                     } else {
+                        binding.trueView.visibility = View.VISIBLE
+                        val animation = AnimationUtils.loadAnimation(
+                            requireContext(),
+                            R.anim.nav_default_enter_anim
+                        )
+                        binding.trueView.startAnimation(animation)
+                        //   binding.view.setBackgroundColor(Color.parseColor("#32CD32"))
+
+                        binding.trueText.text = "Верно"
                         val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.success)
                         mediaPlayer.start()
-                        binding.view.visibility = View.VISIBLE
-                        binding.view.setBackgroundColor(Color.GREEN)
-                        binding.trueOrWrongText.text = "Верно"
                         mCorrectAnswers++
                     }
+
                     if (mCurrentPosition == mQuestionsList?.size) {
                         binding.submitBtn.text = "Завершить"
-                        visibleView()
+                      //  visibleView()
                     } else {
-
                         binding.submitBtn.text = "Дальше"
                     }
                     mSelectedOptionPosition = 0
@@ -163,24 +174,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
 
         }
 
-    }
-
-    private fun answerView(answer: Int, drawableView: Int) {
-
-        when (answer) {
-            1 -> {
-                binding.optionOneTxt.background =
-                    ContextCompat.getDrawable(requireContext(), drawableView)
-            }
-            2 -> {
-                binding.optionTwoTxt.background =
-                    ContextCompat.getDrawable(requireContext(), drawableView)
-            }
-            3 -> {
-                binding.optionThreeTxt.background =
-                    ContextCompat.getDrawable(requireContext(), drawableView)
-            }
-        }
     }
 
     private fun selectedOptionView(tv: TextView, selectedOptionNumber: Int) {
@@ -195,28 +188,27 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
 
     private fun setQuestion() {
         // noVisibleView()
-
         val items = mQuestionsList
         val question = items!![mCurrentPosition - 1]
+
         defaultOptionsView()
-        if (mCurrentPosition == items!!.size) {
+        if (mCurrentPosition == items.size) {
             binding.submitBtn.text = "Завершить"
 
         } else {
             binding.submitBtn.text = "Подтвердить"
         }
-
         binding.progressBar.progress = mCurrentPosition
+        binding.progressBar.max = mQuestionsList!!.size
         binding.tvProgress.text = "$mCurrentPosition/" + binding.progressBar.max
 
-        if (items != null) {
-            for (i in 0 until items.count()) {
-                val details = items[i]
-                binding.tvQuestion.text = question.question
-                binding.optionOneTxt.text = question.optionOne
-                binding.optionTwoTxt.text = question.optionTwo
-                binding.optionThreeTxt.text = question.optionThree
-            }
+        for (i in 0 until items.count()) {
+            Glide.with(requireContext()).load(question.imageDetail.toString()).fitCenter().transform(RoundedCorners(16))
+                .into(binding.imageQuestion)
+            binding.tvQuestion.text = question.question
+            binding.optionOneTxt.text = question.optionOne
+            binding.optionTwoTxt.text = question.optionTwo
+            binding.optionThreeTxt.text = question.optionThree
         }
     }
 
@@ -238,24 +230,39 @@ class QuizDetailFragment : Fragment(), View.OnClickListener {
         return clickable
     }
 
-    private fun visibleView() {
-        binding.constraintFragmentDetailQuiz.isClickable = false
-        if (mSelectedOptionPosition == mCorrectAnswers) {
-            binding.view.visibility = View.VISIBLE
-            binding.view.setBackgroundColor(Color.GREEN)
-            binding.trueOrWrongText.text = "Верно"
-        } else if (mSelectedOptionPosition != mCorrectAnswers) {
-            binding.view.visibility = View.VISIBLE
-            binding.view.setBackgroundColor(Color.parseColor("#CD5C5C"))
-            binding.trueOrWrongText.text = "Неверно"
-        } else {
-            binding.view.visibility = View.VISIBLE
-            binding.view.setBackgroundColor(Color.RED)
-            binding.trueOrWrongText.text = "Неверно"
-        }
+    private fun noVisibleView() {
+        binding.trueView.visibility = View.GONE
+        binding.falseView.visibility = View.GONE
     }
 
-    private fun noVisibleView() {
-        binding.view.visibility = View.GONE
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            // set US English as language for tts
+            val result = tts!!.setLanguage(Locale.US)
+
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("TTS","The Language specified is not supported!")
+            } else {
+                Log.e("TTS","Ok")
+            }
+
+        } else {
+            Log.e("TTS", "Initilization Failed!")
+        }
+    }
+    private fun speakOut() {
+        val items = mQuestionsList
+        val question = items!![mCurrentPosition - 1]
+        val text = question.question.toString()
+        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+    }
+
+    public override fun onDestroy() {
+        // Shutdown TTS
+        if (tts != null) {
+            tts!!.stop()
+            tts!!.shutdown()
+        }
+        super.onDestroy()
     }
 }
