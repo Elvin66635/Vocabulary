@@ -11,7 +11,8 @@
         tools:layout="@layout/fragment_main_quiz" >
         <action
             android:id="@+id/action_mainQuizFragment_to_quizDetailFragment"
-            app:destination="@id/quizDetailFragment" />
+            app:destination="@id/quizDetailFragment"
+            app:enterAnim="@anim/fade_in" />
     </fragment>
     <fragment
         android:id="@+id/quizDetailFragment"
@@ -24,9 +25,9 @@
     </fragment>
     <fragment
         android:id="@+id/exampleDetailFragment"
-        android:name="com.example.vocabulary.fragments.ExampleDetailFragment"
+        android:name="com.example.vocabulary.fragments.ResultQuizFragment"
         android:label="fragment_example_detail"
-        tools:layout="@layout/fragment_example_detail" >
+        tools:layout="@layout/fragment_quiz_result" >
         <action
             android:id="@+id/action_exampleDetailFragment_to_mainQuizFragment"
             app:destination="@id/mainQuizFragment" />

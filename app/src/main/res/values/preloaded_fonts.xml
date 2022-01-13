@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/amiko_semibold</item>
+        <item>@font/andada</item>
+        <item>@font/arbutus_slab</item>
+        <item>@font/bree_serif</item>
+        <item>@font/quattrocento_sans_bold</item>
+        <item>@font/source_serif_pro_semibold</item>
+        <item>@font/unlock</item>
+    </array>
+</resources>

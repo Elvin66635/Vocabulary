@@ -3,12 +3,15 @@
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_200">#B6FF9305</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light">#37BECDEB</color>
     <color name="green">#4EFE33</color>
     <color name="red">#C9FF4242</color>
+    <color name="orange">#83FF9305</color>
+    <color name="blue">#9F134AEF</color>
     <color name="quizBackground">#67C7C3C5</color>
     <color name="quizQuestion">#BDBEC8FF</color>
 </resources>

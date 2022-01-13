@@ -5,205 +5,209 @@
     android:id="@+id/constraintFragmentDetailQuiz"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/light"
     tools:context=".QuizQuestionsActivity">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
+        android:max="10"
+        app:layout_constraintBottom_toTopOf="@+id/imageQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageQuestion"
+        android:layout_width="345dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:srcCompat="@drawable/_560px_flag_of_argentina_svg" />
+
+    <TextView
+        android:id="@+id/tv_question"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/bree_serif"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/optionOneTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageQuestion" />
+
+    <TextView
+        android:id="@+id/optionOneTxt"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/default_option_border"
+        android:fontFamily="@font/andada"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+
+    <TextView
+        android:id="@+id/optionTwoTxt"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/default_option_border"
+        android:fontFamily="@font/andada"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionOneTxt" />
+
+    <TextView
+        android:id="@+id/optionThreeTxt"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+
+        android:background="@drawable/default_option_border"
+        android:fontFamily="@font/andada"
+        android:gravity="center"
+        android:text="TextView"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionTwoTxt" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submitBtn"
+        android:layout_width="165dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/button_font"
+        android:gravity="center"
+        android:text="Submit"
+        android:textSize="15dp"
+        app:cornerRadius="55dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionThreeTxt" />
+
+    <LinearLayout
+        android:id="@+id/false_view"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/red"
+        android:orientation="vertical"
+        android:padding="8sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionTwoTxt"
+        app:layout_constraintVertical_bias="0.35000002">
+
         <TextView
-            android:id="@+id/tv_progress"
+            android:id="@+id/wrongText"
             android:layout_width="wrap_content"
-            android:layout_height="20sp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="14dp"
-            android:textSize="18sp"
+            android:layout_height="25sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="top"
+            android:maxLines="2"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/imageQuestion"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/progressBar"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50sp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="16dp"
-            android:max="10"
-            app:layout_constraintBottom_toTopOf="@+id/imageQuestion"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_progress"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.172" />
 
-        <ImageView
-            android:id="@+id/imageQuestion"
-            android:layout_width="320sp"
-            android:layout_height="175sp"
-            android:layout_marginTop="4dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar"
-            app:srcCompat="@drawable/_560px_flag_of_argentina_svg" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/true_view"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="1dp"
+        android:background="@drawable/layout_bg"
+        android:backgroundTint="@color/green"
+        android:orientation="vertical"
+        android:padding="8sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionTwoTxt"
+        app:layout_constraintVertical_bias="0.35000002">
 
         <TextView
-            android:id="@+id/tv_question"
-            android:layout_width="match_parent"
-            android:layout_height="33dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="TextView"
-            android:textSize="25sp"
+            android:id="@+id/trueText"
+            android:layout_width="wrap_content"
+            android:layout_height="25sp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="top"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/optionOneTxt"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageQuestion" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.172" />
 
-        <TextView
-            android:id="@+id/optionOneTxt"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/default_option_border"
-            android:gravity="center"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/optionTwoTxt"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/default_option_border"
-            android:gravity="center"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionOneTxt" />
-
-        <TextView
-            android:id="@+id/optionThreeTxt"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/default_option_border"
-            android:gravity="center"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionTwoTxt" />
-
-        <Button
-            android:id="@+id/submitBtn"
-            android:layout_width="150sp"
-            android:layout_height="50sp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="90dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/default_option_border"
-            android:gravity="center"
-            android:text="Submit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionThreeTxt" />
-
-        <LinearLayout
-            android:id="@+id/false_view"
-            android:layout_width="match_parent"
-            android:layout_height="135dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="110dp"
-            android:layout_marginEnd="1dp"
-            android:background="@drawable/layout_bg"
-            android:backgroundTint="@color/red"
-            android:orientation="vertical"
-            android:padding="8sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/submitBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionTwoTxt"
-            app:layout_constraintVertical_bias="0.35000002">
-
-                <TextView
-                    android:id="@+id/wrongText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25sp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="32dp"
-                    android:gravity="top"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.49"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.172" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/true_view"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="110dp"
-            android:layout_marginEnd="1dp"
-            android:background="@drawable/layout_bg"
-            android:backgroundTint="@color/green"
-            android:orientation="vertical"
-            android:padding="8sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/submitBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/optionTwoTxt"
-            app:layout_constraintVertical_bias="0.35000002">
-
-                <TextView
-                    android:id="@+id/trueText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25sp"
-                    android:layout_marginStart="32dp"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="32dp"
-                    android:gravity="top"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.49"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.172" />
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/speachText"
-            android:background="@drawable/volume_background"
-            android:layout_height="50dp"
-            android:layout_width="50dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageQuestion"
-            app:layout_constraintStart_toStartOf="@+id/imageQuestion"
-            app:srcCompat="@drawable/ic_volume" />
+    <ImageButton
+        android:id="@+id/speachText"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/volume_background"
+        app:layout_constraintBottom_toBottomOf="@+id/imageQuestion"
+        app:layout_constraintEnd_toEndOf="@+id/imageQuestion"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imageQuestion"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_volume" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

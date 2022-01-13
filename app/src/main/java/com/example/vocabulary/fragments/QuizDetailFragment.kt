@@ -1,18 +1,24 @@
 package com.example.vocabulary.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -27,7 +33,7 @@ import kotlin.math.round
 
 private const val TAG = "QuizDetailFragment"
 
-class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitListener {
+class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitListener, Animation.AnimationListener {
     private lateinit var binding: FragmentQuizDetailBinding
     private var tts: TextToSpeech? = null
 
@@ -98,13 +104,16 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         when (v?.id) {
             R.id.optionOneTxt -> {
                 selectedOptionView(binding.optionOneTxt, 1)
+                vibrateButton()
             }
             R.id.optionTwoTxt -> {
                 selectedOptionView(binding.optionTwoTxt, 2)
+                vibrateButton()
 
             }
             R.id.optionThreeTxt -> {
                 selectedOptionView(binding.optionThreeTxt, 3)
+                vibrateButton()
             }
 
             R.id.speachText -> {
@@ -113,6 +122,8 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
 
             R.id.submitBtn -> {
 
+
+
                 isClickableOtherOptions(true)
                 if (mSelectedOptionPosition == 0) {
                     mCurrentPosition++
@@ -120,16 +131,20 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                         mCurrentPosition <= mQuestionsList?.size!! -> {
                             setQuestion()
                             noVisibleView()
+                            val anim = AnimationUtils.loadAnimation(context, R.anim.slide_down)
+                            anim.setAnimationListener(this)
+                            binding.constraintFragmentDetailQuiz.startAnimation(anim)
                         }
                         else -> {
                             val bundle = Bundle()
                             bundle.putInt("correct_answers", mCorrectAnswers)
                             bundle.putInt("total_questions", mQuestionsList!!.size)
+                            bundle.putString("image", image)
+                            bundle.putString("title", title)
                             findNavController().navigate(
                                 R.id.action_quizDetailFragment_to_exampleDetailFragment,
                                 bundle
                             )
-
                         }
                     }
                 } else {
@@ -144,8 +159,11 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                         binding.falseView.startAnimation(animation)
                         val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.error)
                         mediaPlayer.start()
-                        //   binding.view.setBackgroundColor(Color.parseColor("#CD5C5C"))
-                        binding.wrongText.text = "Неверно"
+                        vibrateButton()
+                        binding.wrongText.text = "Правильно: ${question.correctWord}"
+                        Log.d(TAG, "onClick: $question.correctWord.toString()")
+
+
 
                     } else {
                         binding.trueView.visibility = View.VISIBLE
@@ -155,7 +173,7 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                         )
                         binding.trueView.startAnimation(animation)
                         //   binding.view.setBackgroundColor(Color.parseColor("#32CD32"))
-
+                        vibrateButton()
                         binding.trueText.text = "Верно"
                         val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.success)
                         mediaPlayer.start()
@@ -165,6 +183,7 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                     if (mCurrentPosition == mQuestionsList?.size) {
                         binding.submitBtn.text = "Завершить"
                       //  visibleView()
+
                     } else {
                         binding.submitBtn.text = "Дальше"
                     }
@@ -200,11 +219,14 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         }
         binding.progressBar.progress = mCurrentPosition
         binding.progressBar.max = mQuestionsList!!.size
-        binding.tvProgress.text = "$mCurrentPosition/" + binding.progressBar.max
+    //    binding.tvProgress.text = "$mCurrentPosition/" + binding.progressBar.max
 
         for (i in 0 until items.count()) {
-            Glide.with(requireContext()).load(question.imageDetail.toString()).fitCenter().transform(RoundedCorners(16))
+            Glide.with(requireContext()).load(question.imageDetail.toString())
+                .transform(RoundedCorners(35))
+                .centerCrop()
                 .into(binding.imageQuestion)
+
             binding.tvQuestion.text = question.question
             binding.optionOneTxt.text = question.optionOne
             binding.optionTwoTxt.text = question.optionTwo
@@ -238,7 +260,7 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
             // set US English as language for tts
-            val result = tts!!.setLanguage(Locale.US)
+            val result = tts!!.setLanguage(Locale.UK)
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 Log.e("TTS","The Language specified is not supported!")
@@ -265,4 +287,24 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         }
         super.onDestroy()
     }
+
+    fun vibrateButton(){
+        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(35, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(35)
+        }
+    }
+
+    override fun onAnimationStart(p0: Animation?) {
+    }
+
+    override fun onAnimationEnd(p0: Animation?) {
+    }
+
+    override fun onAnimationRepeat(p0: Animation?) {
+    }
+
+
 }

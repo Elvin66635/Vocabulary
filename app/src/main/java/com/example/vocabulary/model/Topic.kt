@@ -45,7 +45,7 @@ data class QuizDetails(
     val optionOne: String?,
     val optionTwo: String?,
     val optionThree: String?,
-    val optionFour: String?,
+    val correctWord: String?,
     val correctAnswer: Int,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -64,7 +64,7 @@ data class QuizDetails(
         parcel.writeString(optionOne)
         parcel.writeString(optionTwo)
         parcel.writeString(optionThree)
-        parcel.writeString(optionFour)
+        parcel.writeString(correctWord)
         parcel.writeInt(correctAnswer)
     }
 
