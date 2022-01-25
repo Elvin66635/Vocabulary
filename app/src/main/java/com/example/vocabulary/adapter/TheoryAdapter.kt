@@ -21,42 +21,47 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.vocabulary.R
 import com.example.vocabulary.databinding.CustomRowBinding
+import com.example.vocabulary.databinding.ItemTheoryBinding
+import com.example.vocabulary.model.QuizDetails
 import com.example.vocabulary.model.Topic
 
 private const val TAG = "TopicAdapter"
 
-class TopicAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<Topic, TopicAdapter.TopicViewHolder>(MyDiffUtil) {
+class TheoryAdapter constructor(private val onClickListener: OnClickListener) :
+    ListAdapter<QuizDetails, TheoryAdapter.TopicViewHolder>(MyDiffUtil) {
 
 
-    companion object MyDiffUtil : DiffUtil.ItemCallback<Topic>() {
-        override fun areItemsTheSame(oldItem: Topic, newItem: Topic): Boolean {
+    companion object MyDiffUtil : DiffUtil.ItemCallback<QuizDetails>() {
+        override fun areItemsTheSame(oldItem: QuizDetails, newItem: QuizDetails): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Topic, newItem: Topic): Boolean {
+        override fun areContentsTheSame(oldItem: QuizDetails, newItem: QuizDetails): Boolean {
             return oldItem == newItem
         }
     }
 
-    class TopicViewHolder(private val binding: CustomRowBinding) :
+    class TopicViewHolder(private val binding: ItemTheoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-
-        fun bind(topic: Topic) {
-            binding.articleTitle.text = topic.title
-            Glide.with(binding.articleImg).load(topic.image).into(binding.articleImg)
+        fun bind(topic: QuizDetails) {
+            binding.titleTheory.text = topic.question
+        //    Glide.with(binding.imageTheory).load(topic.image).into(binding.imageTheory)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
         return TopicViewHolder(
-            CustomRowBinding.inflate(
+            ItemTheoryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
+    }
+
+
+    class OnClickListener(val clickListener: (topic: QuizDetails) -> Unit) {
+        fun onClick(topic: QuizDetails) = clickListener(topic)
     }
 
     override fun onBindViewHolder(holder: TopicViewHolder, position: Int) {
@@ -65,9 +70,5 @@ class TopicAdapter(private val onClickListener: OnClickListener) :
             onClickListener.onClick(topic)
         }
         holder.bind(topic)
-    }
-
-    class OnClickListener(val clickListener: (topic: Topic) -> Unit) {
-        fun onClick(topic: Topic) = clickListener(topic)
     }
 }

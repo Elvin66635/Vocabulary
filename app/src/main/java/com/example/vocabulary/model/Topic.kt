@@ -7,6 +7,7 @@ data class Topic(
     val id: Int,
     val question: String?,
     val image: String?,
+    val imageTheory: String?,
     val title: String?,
     val quizDetails: ArrayList<QuizDetails>
 ) : Parcelable {
@@ -15,9 +16,9 @@ data class Topic(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         TODO("quizDetails")
-    ) {
-    }
+    )
 
     override fun describeContents(): Int {
         TODO("Not yet implemented")
@@ -42,6 +43,7 @@ data class Topic(
 data class QuizDetails(
     val question: String?,
     val imageDetail: String?,
+    val exampleSentence: String?,
     val optionOne: String?,
     val optionTwo: String?,
     val optionThree: String?,
@@ -55,9 +57,9 @@ data class QuizDetails(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(question)

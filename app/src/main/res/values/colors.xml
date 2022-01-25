@@ -6,10 +6,11 @@
     <color name="teal_200">#B6FF9305</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="tv_black">#1F1F1F</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light">#37BECDEB</color>
+    <color name="light">#A5EAF5FF</color>
     <color name="green">#4EFE33</color>
-    <color name="red">#C9FF4242</color>
+    <color name="red">#FF4242</color>
     <color name="orange">#83FF9305</color>
     <color name="blue">#9F134AEF</color>
     <color name="quizBackground">#67C7C3C5</color>

@@ -60,6 +60,10 @@ dependencies {
     //Celebration
     implementation 'nl.dionsegijn:konfetti:1.3.2'
 
+
+    implementation 'com.github.sparrow007:carouselrecyclerview:1.2.1'
+    implementation 'com.mig35:carousellayoutmanager:1.4.6'
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'

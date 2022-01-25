@@ -3,6 +3,7 @@ package com.example.vocabulary.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.vocabulary.model.QuizDetails
 import com.example.vocabulary.model.Topic
 import com.example.vocabulary.repository.TopicsRepository
 import com.google.gson.GsonBuilder

@@ -11,6 +11,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.view.ContextMenu
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.example.vocabulary.R
 import com.example.vocabulary.databinding.FragmentQuizDetailBinding
+import com.example.vocabulary.model.Question
 import com.example.vocabulary.model.QuizDetails
 import java.util.*
 import kotlin.collections.ArrayList
@@ -36,6 +38,7 @@ private const val TAG = "QuizDetailFragment"
 class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitListener, Animation.AnimationListener {
     private lateinit var binding: FragmentQuizDetailBinding
     private var tts: TextToSpeech? = null
+    private lateinit var bundle: Bundle
 
     private var mCurrentPosition: Int = 1
     private var mQuestionsList: ArrayList<QuizDetails>? = null
@@ -49,6 +52,8 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
     private lateinit var question: String
     private lateinit var image: String
     private var correctAnswer = 0
+    private var savedResult = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,8 +75,10 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         optionFour = arguments?.getString("optionFour").toString()
         image = arguments?.getString("image").toString()
         correctAnswer = arguments?.getInt("correctAnswer")!!
+        savedResult = arguments?.getInt("saved_result")!!
         mQuestionsList = arguments?.getParcelableArrayList("list")
 
+        bundle = Bundle()
 
         setQuestion()
         binding.optionOneTxt.setOnClickListener(this)
@@ -91,7 +98,7 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         options.add(2, binding.optionThreeTxt)
 
         for (option in options) {
-            option.setTextColor(Color.GRAY)
+            option.setTextColor(Color.parseColor("#1F1F1F"))
             option.typeface = Typeface.DEFAULT
             option.background =
                 ContextCompat.getDrawable(requireContext(), R.drawable.default_option_border)
@@ -104,16 +111,13 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         when (v?.id) {
             R.id.optionOneTxt -> {
                 selectedOptionView(binding.optionOneTxt, 1)
-                vibrateButton()
             }
             R.id.optionTwoTxt -> {
                 selectedOptionView(binding.optionTwoTxt, 2)
-                vibrateButton()
 
             }
             R.id.optionThreeTxt -> {
                 selectedOptionView(binding.optionThreeTxt, 3)
-                vibrateButton()
             }
 
             R.id.speachText -> {
@@ -121,9 +125,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
             }
 
             R.id.submitBtn -> {
-
-
-
                 isClickableOtherOptions(true)
                 if (mSelectedOptionPosition == 0) {
                     mCurrentPosition++
@@ -131,16 +132,13 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                         mCurrentPosition <= mQuestionsList?.size!! -> {
                             setQuestion()
                             noVisibleView()
-                            val anim = AnimationUtils.loadAnimation(context, R.anim.slide_down)
-                            anim.setAnimationListener(this)
-                            binding.constraintFragmentDetailQuiz.startAnimation(anim)
                         }
                         else -> {
-                            val bundle = Bundle()
                             bundle.putInt("correct_answers", mCorrectAnswers)
                             bundle.putInt("total_questions", mQuestionsList!!.size)
                             bundle.putString("image", image)
                             bundle.putString("title", title)
+                            bundle.putInt("saved_result", savedResult)
                             findNavController().navigate(
                                 R.id.action_quizDetailFragment_to_exampleDetailFragment,
                                 bundle
@@ -157,13 +155,10 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                             R.anim.nav_default_exit_anim
                         )
                         binding.falseView.startAnimation(animation)
-                        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.error)
+                        val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.fail)
                         mediaPlayer.start()
                         vibrateButton()
                         binding.wrongText.text = "Правильно: ${question.correctWord}"
-                        Log.d(TAG, "onClick: $question.correctWord.toString()")
-
-
 
                     } else {
                         binding.trueView.visibility = View.VISIBLE
@@ -224,7 +219,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         for (i in 0 until items.count()) {
             Glide.with(requireContext()).load(question.imageDetail.toString())
                 .transform(RoundedCorners(35))
-                .centerCrop()
                 .into(binding.imageQuestion)
 
             binding.tvQuestion.text = question.question
@@ -291,9 +285,9 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
     fun vibrateButton(){
         val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(35, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(30, VibrationEffect.DEFAULT_AMPLITUDE))
         } else {
-            vibrator.vibrate(35)
+            vibrator.vibrate(30)
         }
     }
 
@@ -305,6 +299,4 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
 
     override fun onAnimationRepeat(p0: Animation?) {
     }
-
-
 }

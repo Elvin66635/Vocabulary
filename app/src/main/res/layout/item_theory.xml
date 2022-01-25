@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/title_theory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:layout_gravity="center_horizontal"
+        android:text="AAAAAAAAAAAAAA"/>
+
+        <ImageView
+            android:id="@+id/image_theory"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_fail"
+            android:layout_width="150dp"
+            android:layout_height="150dp"/>
+
+    <Button
+        android:text="YES"
+        android:layout_below="@+id/image_theory"
+        android:id="@+id/yesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:text="NO"
+        android:layout_below="@+id/image_theory"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/yesBtn"
+        android:id="@+id/noBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

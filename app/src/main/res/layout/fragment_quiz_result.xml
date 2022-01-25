@@ -47,7 +47,7 @@
             app:layout_constraintTop_toBottomOf="@+id/image_result" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/button3"
+            android:id="@+id/go_to_main"
             android:layout_width="0dp"
             android:layout_height="70dp"
             android:layout_marginStart="24dp"
@@ -56,7 +56,7 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="@color/blue"
             android:fontFamily="@font/unlock"
-            android:text="Следующая глава"
+            android:text="Главное меню"
             android:textSize="18dp"
             app:cornerRadius="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -89,6 +89,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_result" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:theme="@style/RatingBar"
+            android:numStars="3"
+            android:clickable="false"
+            android:progressBackgroundTint="@color/orange"
+            android:backgroundTint="@color/orange"
+            app:layout_constraintBottom_toTopOf="@+id/go_to_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/amount_result"
+            app:layout_constraintVertical_bias="0.984" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

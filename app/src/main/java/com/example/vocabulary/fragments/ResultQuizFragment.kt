@@ -1,13 +1,13 @@
 package com.example.vocabulary.fragments
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.addCallback
@@ -24,25 +24,23 @@ private const val TAG = "ExampleDetailFragment"
 
 class ResultQuizFragment : Fragment(), Animation.AnimationListener {
     private var binding: FragmentQuizResultBinding? = null
+    private var totalQuestions: Int? = 0
+    private var correctAnswer: Int? = 0
+    private var savedResult: Int? = 0
+    private var result: Int? = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(R.id.action_exampleDetailFragment_to_mainQuizFragment)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val fragmentBinding = FragmentQuizResultBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         val anim = AnimationUtils.loadAnimation(context, R.anim.slide_down)
         anim.setAnimationListener(this)
-        GlobalScope.launch (Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.Main) {
             val mediaPlayer = MediaPlayer.create(requireContext(), R.raw.complete)
             mediaPlayer.start()
             congratulateKonfetti()
@@ -53,15 +51,14 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
-
-        val totalQuestions = arguments?.getInt("total_questions", 0)
-        val correctAnswer = arguments?.getInt("correct_answers", 0)
+        totalQuestions = arguments?.getInt("total_questions", 0)
+        correctAnswer = arguments?.getInt("correct_answers", 0)
         val image = arguments?.getString("image")
         val title = arguments?.getString("title")
-        Log.d(TAG, "onViewCreated: $image")
+        savedResult = arguments?.getInt("saved_result")
+
+        result = savedResult!! + correctAnswer!!
+        Log.d(TAG, "onViewCreated: $result")
 
         val badResult = totalQuestions!! / 2
         val normalResult = totalQuestions!! / 1.5
@@ -71,20 +68,26 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
         if (correctAnswer!! < normalResult) {
             binding!!.textResult.text = "Потренируйтесь ещё!"
             binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
-        } else if (correctAnswer < bestResult) {
+            binding!!.ratingBar.numStars = 1
+            binding!!.ratingBar.setIsIndicator(true)
+        } else if (correctAnswer!! < goodResult) {
             binding!!.textResult.text = "Хорошо!"
             binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
-        } else if (correctAnswer < badResult){
+            binding!!.ratingBar.numStars = 2
+            binding!!.ratingBar.setIsIndicator(true)
+        } else if (correctAnswer!! < badResult) {
             binding!!.textResult.text = "Плохой результат!"
             binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
-        }else {
+        } else {
             binding!!.textResult.text = "Отлично!"
             binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
+            binding!!.ratingBar.setIsIndicator(true)
+            binding!!.ratingBar.numStars = 3
         }
 
         val bundle = Bundle()
         if (correctAnswer != null) {
-            bundle.putInt("correct_answers", correctAnswer)
+            bundle.putInt("total_questions", totalQuestions!!)
         }
 
         Glide.with(requireContext()).load(image)
@@ -94,15 +97,16 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
 
         binding!!.titleResult.text = title
 
+        binding!!.goToMain.setOnClickListener {
+            saveData()
+            findNavController().navigate(
+                R.id.action_exampleDetailFragment_to_mainQuizFragment,
+                bundle
+            )
+        }
+    }
 
-
-
-    //       binding?.resultTxt?.text = "Your score is $correctAnswer out of $totalQuestions"
-    Log.d(TAG, "onViewCreated: $binding?.resultTxt?.text = \"Your score is $correctAnswer out of $totalQuestions\"")
-    //  findNavController().navigate(R.id.action_exampleDetailFragment_to_mainQuizFragment, bundle)
-}
-
-    suspend fun congratulateKonfetti()  {
+    suspend fun congratulateKonfetti() {
 
         binding!!.konfettiView.build()
             .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
@@ -127,5 +131,13 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
     }
 
 
+    private fun saveData() {
+        val sharedPreferences: SharedPreferences =
+            requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? = sharedPreferences.edit()
+        editor.apply {
+            this?.putInt("result", result!!)
+        }?.apply()
 
+    }
 }

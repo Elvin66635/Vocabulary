@@ -13,6 +13,9 @@
             android:id="@+id/action_mainQuizFragment_to_quizDetailFragment"
             app:destination="@id/quizDetailFragment"
             app:enterAnim="@anim/fade_in" />
+        <action
+            android:id="@+id/action_mainQuizFragment_to_theoryFragment"
+            app:destination="@id/theoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizDetailFragment"
@@ -30,6 +33,18 @@
         tools:layout="@layout/fragment_quiz_result" >
         <action
             android:id="@+id/action_exampleDetailFragment_to_mainQuizFragment"
+            app:destination="@id/mainQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/theoryFragment"
+        android:name="com.example.vocabulary.fragments.TheoryFragment"
+        android:label="fragment_theory"
+        tools:layout="@layout/fragment_theory" >
+        <action
+            android:id="@+id/action_theoryFragment_to_quizDetailFragment"
+            app:destination="@id/quizDetailFragment" />
+        <action
+            android:id="@+id/action_theoryFragment_to_mainQuizFragment"
             app:destination="@id/mainQuizFragment" />
     </fragment>
 </navigation>
