@@ -5,13 +5,14 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.media.MediaPlayer
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.view.ContextMenu
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,19 +20,16 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.vocabulary.R
 import com.example.vocabulary.databinding.FragmentQuizDetailBinding
-import com.example.vocabulary.model.Question
 import com.example.vocabulary.model.QuizDetails
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.round
 
 private const val TAG = "QuizDetailFragment"
 
@@ -59,7 +57,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentQuizDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -132,6 +129,11 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                         mCurrentPosition <= mQuestionsList?.size!! -> {
                             setQuestion()
                             noVisibleView()
+                            val animation = AnimationUtils.loadAnimation(
+                                requireContext(),
+                                R.anim.fade_in
+                            )
+                            binding.constraintFragmentDetailQuiz.startAnimation(animation)
                         }
                         else -> {
                             bundle.putInt("correct_answers", mCorrectAnswers)
@@ -150,6 +152,8 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                     val question = mQuestionsList?.get(mCurrentPosition - 1)
                     if (question!!.correctAnswer != mSelectedOptionPosition) {
                         binding.falseView.visibility = View.VISIBLE
+                        binding.constraintFragmentDetailQuiz.background =
+                            ContextCompat.getDrawable(requireContext(), R.drawable.dark_background)
                         val animation = AnimationUtils.loadAnimation(
                             requireContext(),
                             R.anim.nav_default_exit_anim
@@ -162,6 +166,7 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
 
                     } else {
                         binding.trueView.visibility = View.VISIBLE
+
                         val animation = AnimationUtils.loadAnimation(
                             requireContext(),
                             R.anim.nav_default_enter_anim
@@ -201,6 +206,8 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
     }
 
     private fun setQuestion() {
+        binding.constraintFragmentDetailQuiz.background =
+            ContextCompat.getDrawable(requireContext(), R.color.detail_background)
         // noVisibleView()
         val items = mQuestionsList
         val question = items!![mCurrentPosition - 1]
@@ -214,19 +221,39 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         }
         binding.progressBar.progress = mCurrentPosition
         binding.progressBar.max = mQuestionsList!!.size
-    //    binding.tvProgress.text = "$mCurrentPosition/" + binding.progressBar.max
+        binding.progressBar.progressDrawable.setColorFilter(
+            Color.BLUE, android.graphics.PorterDuff.Mode.SRC_IN)
+
 
         for (i in 0 until items.count()) {
-            Glide.with(requireContext()).load(question.imageDetail.toString())
-                .transform(RoundedCorners(35))
-                .into(binding.imageQuestion)
+            if (isNetworkAvailable()) {
+                Glide.with(requireContext()).load(question.imageDetail.toString())
+                    .transform(RoundedCorners(35))
+                    .into(binding.imageQuestion)
 
-            binding.tvQuestion.text = question.question
-            binding.optionOneTxt.text = question.optionOne
-            binding.optionTwoTxt.text = question.optionTwo
-            binding.optionThreeTxt.text = question.optionThree
+                binding.tvQuestion.text = question.question
+                binding.optionOneTxt.text = question.optionOne
+                binding.optionTwoTxt.text = question.optionTwo
+                binding.optionThreeTxt.text = question.optionThree
+            }else{
+                Glide.with(requireContext()).load(R.drawable.loading_ic)
+                    .into(binding.imageQuestion)
+
+                binding.tvQuestion.text = question.question
+                binding.optionOneTxt.text = question.optionOne
+                binding.optionTwoTxt.text = question.optionTwo
+                binding.optionThreeTxt.text = question.optionThree
+            }
         }
     }
+
+    private fun isNetworkAvailable(): Boolean {
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities = cm.getNetworkCapabilities(cm.activeNetwork)
+
+        return (capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET))
+    }
+
 
     private fun checkedPressOptions() {
         if (binding.optionOneTxt.isPressed ||
@@ -271,15 +298,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         val question = items!![mCurrentPosition - 1]
         val text = question.question.toString()
         tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
-    }
-
-    public override fun onDestroy() {
-        // Shutdown TTS
-        if (tts != null) {
-            tts!!.stop()
-            tts!!.shutdown()
-        }
-        super.onDestroy()
     }
 
     fun vibrateButton(){

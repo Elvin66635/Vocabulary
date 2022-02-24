@@ -10,7 +10,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.activity.addCallback
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -28,14 +28,14 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
     private var correctAnswer: Int? = 0
     private var savedResult: Int? = 0
     private var result: Int? = 0
+    private var resultStars: Int? = 0
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        // Inflate the layout for this fragment
         val fragmentBinding = FragmentQuizResultBinding.inflate(inflater, container, false)
         binding = fragmentBinding
         val anim = AnimationUtils.loadAnimation(context, R.anim.slide_down)
@@ -61,33 +61,43 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
         Log.d(TAG, "onViewCreated: $result")
 
         val badResult = totalQuestions!! / 2
-        val normalResult = totalQuestions!! / 1.5
-        val goodResult = totalQuestions!! / 1.3
-        val bestResult = totalQuestions!! / 1.1
+        val normalResult = totalQuestions!! / 1.3
+        val goodResult = totalQuestions!! / 1.2
 
-        if (correctAnswer!! < normalResult) {
-            binding!!.textResult.text = "Потренируйтесь ещё!"
-            binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
-            binding!!.ratingBar.numStars = 1
-            binding!!.ratingBar.setIsIndicator(true)
-        } else if (correctAnswer!! < goodResult) {
-            binding!!.textResult.text = "Хорошо!"
-            binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
-            binding!!.ratingBar.numStars = 2
-            binding!!.ratingBar.setIsIndicator(true)
-        } else if (correctAnswer!! < badResult) {
-            binding!!.textResult.text = "Плохой результат!"
-            binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
-        } else {
-            binding!!.textResult.text = "Отлично!"
-            binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
-            binding!!.ratingBar.setIsIndicator(true)
-            binding!!.ratingBar.numStars = 3
+        when {
+            correctAnswer!! < normalResult -> {
+                binding!!.textResult.text = "Потренируйтесь ещё!"
+                binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
+                binding!!.ratingBar.numStars = 1
+                resultStars = binding!!.ratingBar.numStars
+                binding!!.ratingBar.setIsIndicator(true)
+            }
+            correctAnswer!! < goodResult -> {
+                binding!!.textResult.text = "Неплохо!"
+                binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
+                binding!!.ratingBar.numStars = 2
+                resultStars = binding!!.ratingBar.numStars
+                binding!!.ratingBar.setIsIndicator(true)
+            }
+            correctAnswer!! < badResult -> {
+                binding!!.textResult.text = "Плохой результат!"
+                binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
+                resultStars = binding!!.ratingBar.numStars
+            }
+            else -> {
+                binding!!.textResult.text = "Отлично!"
+                binding!!.amountResult.text = "$correctAnswer из $totalQuestions"
+                binding!!.ratingBar.setIsIndicator(true)
+                binding!!.ratingBar.numStars = 3
+                resultStars = binding!!.ratingBar.numStars
+            }
         }
 
+        Log.d(TAG, "correct answer: $correctAnswer")
         val bundle = Bundle()
         if (correctAnswer != null) {
             bundle.putInt("total_questions", totalQuestions!!)
+            bundle.putInt("correct_answers", correctAnswer!!)
         }
 
         Glide.with(requireContext()).load(image)
@@ -104,9 +114,16 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
                 bundle
             )
         }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        })
+
     }
 
-    suspend fun congratulateKonfetti() {
+    private fun congratulateKonfetti() {
 
         binding!!.konfettiView.build()
             .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
@@ -130,14 +147,14 @@ class ResultQuizFragment : Fragment(), Animation.AnimationListener {
     override fun onAnimationRepeat(p0: Animation?) {
     }
 
-
     private fun saveData() {
         val sharedPreferences: SharedPreferences =
             requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor? = sharedPreferences.edit()
         editor.apply {
             this?.putInt("result", result!!)
+            this?.putInt("correct_answers", correctAnswer!!)
         }?.apply()
-
     }
+
 }

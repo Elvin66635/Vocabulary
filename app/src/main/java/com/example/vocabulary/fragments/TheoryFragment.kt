@@ -1,14 +1,22 @@
 package com.example.vocabulary.fragments
 
+import android.animation.ValueAnimator
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.animation.doOnEnd
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -41,9 +49,7 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
     private var mQuestionsList: ArrayList<QuizDetails>? = null
     private var tts: TextToSpeech? = null
     private var mCurrentPosition: Int = 1
-    private lateinit var titleTheory: String
-    lateinit var viewModel: TopicViewModel
-    private val retrofitService = API.getInstance()
+    private var isCheck = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +67,7 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
         tts = TextToSpeech(requireContext(), this)
         binding.submitTheoryBtn.setOnClickListener(this)
         binding.theorySpeach.setOnClickListener(this)
+        binding.exampleTextTheory.setOnClickListener(this)
         setQuestion()
 
 /*
@@ -79,8 +86,9 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
 
         // loadData()
     }
+
     private fun setQuestion() {
-        // noVisibleView()
+        hideTranslateText()
         val items = mQuestionsList
         val question = items!![mCurrentPosition - 1]
 
@@ -90,7 +98,6 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
         } else {
             binding.submitTheoryBtn.text = "Дальше"
         }
-        //    binding.tvProgress.text = "$mCurrentPosition/" + binding.progressBar.max
 
         for (i in 0 until items.count()) {
             Glide.with(requireContext()).load(question.imageDetail.toString())
@@ -100,6 +107,7 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
             binding.titleTheory.text = question.question
             binding.theoryTranslate.text = question.correctWord
             binding.exampleTextTheory.text = question.exampleSentence
+            binding.translateTextTheory.text = question.translateSentence
         }
     }
 
@@ -107,9 +115,14 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
         when (v?.id) {
             R.id.submitTheoryBtn -> {
                 mCurrentPosition++
+                val animation = AnimationUtils.loadAnimation(
+                    requireContext(),
+                    R.anim.fade_in
+                )
+                binding.constraintTheory.startAnimation(animation)
                 when {
                     mCurrentPosition <= mQuestionsList?.size!! -> {
-                       setQuestion()
+                        setQuestion()
                     }
                     else -> {
                         findNavController().navigate(
@@ -121,7 +134,51 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
             R.id.theory_speach -> {
                 speakOut()
             }
+            R.id.example_text_theory -> {
+                if (!binding.translateTextTheory.isVisible) {
+                    showTranslateText()
+                } else {
+                    hideTranslateText()
+                }
+            }
         }
+    }
+
+    private fun showTranslateText() {
+        binding.translateTextTheory.updateHeight(ConstraintLayout.LayoutParams.WRAP_CONTENT)
+
+        val totalMarginForSubtitle = 2 * 16.toPx()
+        binding.translateTextTheory.measure(
+            View.MeasureSpec.makeMeasureSpec(
+                binding.constraintTheory.width - totalMarginForSubtitle,
+                View.MeasureSpec.EXACTLY
+            ),
+            View.MeasureSpec.UNSPECIFIED
+        )
+        val subtitleHeight = binding.translateTextTheory.measuredHeight
+
+        binding.translateTextTheory.height = 0
+        binding.translateTextTheory.isVisible = true
+        val heightAnimator = ValueAnimator.ofInt(0, subtitleHeight)
+        heightAnimator.addUpdateListener {
+            binding.translateTextTheory.height = it.animatedValue as Int
+        }
+        heightAnimator.start()
+    }
+
+    private fun hideTranslateText() {
+      //  binding.translateTextTheory.visibility = View.GONE
+
+        val subtitleHeight = binding.translateTextTheory.height
+        val heightAnimator = ValueAnimator.ofInt(subtitleHeight, 0)
+
+        heightAnimator.addUpdateListener {
+            binding.translateTextTheory.updateHeight(it.animatedValue as Int)
+        }
+        heightAnimator.doOnEnd {
+            binding.translateTextTheory.isVisible = false
+        }
+        heightAnimator.start()
     }
 
     override fun onInit(status: Int) {
@@ -130,21 +187,22 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
             val result = tts?.setLanguage(Locale.ENGLISH)
 
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e("TTS","The Language specified is not supported!")
+                Log.e("TTS", "The Language specified is not supported!")
             } else {
-                Log.e("TTS","Ok")
+                Log.e("TTS", "Ok")
             }
 
         } else {
             Log.e("TTS", "Initilization Failed!")
         }
     }
+
     private fun speakOut() {
         val items = mQuestionsList
         val question = items!![mCurrentPosition - 1]
         val text = question.question.toString()
         Log.d(TAG, "speakOut: $text")
-        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null,"")
+        tts!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
 
@@ -157,3 +215,17 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
         super.onDestroy()
     }
 }
+
+
+fun View.updateHeight(newHeight: Int) {
+    layoutParams = layoutParams.apply {
+        height = newHeight
+    }
+}
+
+
+fun Int.toPx() = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP,
+    this.toFloat(),
+    Resources.getSystem().displayMetrics
+).toInt()

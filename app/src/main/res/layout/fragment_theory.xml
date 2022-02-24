@@ -3,32 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#82E0E0E0">
+    android:id="@+id/constraintTheory"
+    android:background="#136E5CCA">
 
     <ImageButton
         android:id="@+id/theory_speach"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginTop="-3dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/volume_background"
+        android:background="@drawable/volume_background_theory"
         android:src="@drawable/ic_volume"
         app:layout_constraintBottom_toTopOf="@+id/image_theory"
         app:layout_constraintEnd_toStartOf="@+id/title_theory"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/title_theory"
-        app:layout_constraintVertical_bias="0.41000003" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/title_theory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:background="@drawable/text_line"
-        android:fontFamily="@font/bree_serif"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center_horizontal"
         android:text="AAAAAAAAA"
         android:textColor="#474747"
@@ -37,31 +39,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.49" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_theory"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="208dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_right"
+        android:src="@drawable/loading_ic"
         app:layout_constraintBottom_toBottomOf="@+id/submitTheoryBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26" />
+        app:layout_constraintVertical_bias="0.19999999" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/submitTheoryBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="65dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="8dp"
+        app:backgroundTint="@color/orange"
+        app:cornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -71,35 +76,60 @@
         android:id="@+id/theory_translate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center_horizontal"
         android:text="TextView"
         android:textColor="#474747"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintBottom_toTopOf="@+id/submitTheoryBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_theory"
-        app:layout_constraintVertical_bias="0.019" />
+        app:layout_constraintVertical_bias="0.07999998" />
 
     <TextView
         android:id="@+id/example_text_theory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/vollkorn_italic"
+        android:gravity="center"
         android:maxLines="3"
-        android:padding="25dp"
         android:text="Asddas asdasda asdasdasd asasas asasda asdsda aas"
-        android:textColor="#CE616262"
-        android:textSize="25sp"
+        android:textColor="#557EA1"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/theory_translate"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <TextView
+        android:id="@+id/translate_text_theory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/vollkorn_italic"
+        android:gravity="center"
+        android:lines="2"
+        android:text="Asddas asdasda asdasdasd asasas asasda asdsda aas"
+        android:textColor="#557EA1"
+        android:textSize="23sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/submitTheoryBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/example_text_theory"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

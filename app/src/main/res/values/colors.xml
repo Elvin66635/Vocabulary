@@ -9,10 +9,18 @@
     <color name="tv_black">#1F1F1F</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light">#A5EAF5FF</color>
+    <color name="detail_background">#0F6E5CCA</color>
     <color name="green">#4EFE33</color>
+    <color name="grey">#727272</color>
     <color name="red">#FF4242</color>
     <color name="orange">#83FF9305</color>
-    <color name="blue">#9F134AEF</color>
+    <color name="orange_theory">#FFA836</color>
+    <color name="blue">#9F1330EF</color>
     <color name="quizBackground">#67C7C3C5</color>
     <color name="quizQuestion">#BDBEC8FF</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

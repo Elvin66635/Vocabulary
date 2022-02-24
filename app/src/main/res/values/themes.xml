@@ -18,4 +18,9 @@
         <item name="colorControlNormal">#9A9A9A</item>
         <item name="colorControlActivated">#CDFFEA00</item>
     </style>
+
+    <style name="ThemeOverlay.Vocabulary.FullscreenContainer" parent="">
+        <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
+        <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
 </resources>

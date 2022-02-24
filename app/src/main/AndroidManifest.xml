@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Vocabulary">
 
         <activity
-            android:name=".exampleRecView.ExampleRecMain"
+            android:name=".Nouns.NounsVocabulary"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -17,6 +17,12 @@ class TopicViewModel(private val repository: TopicsRepository) : ViewModel() {
     val topics = MutableLiveData<List<Topic>>()
     val errorMessage = MutableLiveData<String>()
 
+
+
+
+
+
+
         fun getTopics() {
             val response = repository.getTopics()
             response.enqueue(object : Callback<List<Topic>>{

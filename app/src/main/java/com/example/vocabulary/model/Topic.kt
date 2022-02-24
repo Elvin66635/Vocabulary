@@ -44,6 +44,7 @@ data class QuizDetails(
     val question: String?,
     val imageDetail: String?,
     val exampleSentence: String?,
+    val translateSentence: String?,
     val optionOne: String?,
     val optionTwo: String?,
     val optionThree: String?,
@@ -51,6 +52,7 @@ data class QuizDetails(
     val correctAnswer: Int,
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
