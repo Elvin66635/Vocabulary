@@ -10,6 +10,7 @@
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/default_option_border.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/dialog_bg.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/gradient_background.xml" value="0.1405982905982906" />
+        <entry key="..\:/Vocabulary/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/ic_flag_argentina_background.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/ic_flag_background.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/ic_launcher_background.xml" value="0.17135416666666667" />
@@ -38,13 +39,14 @@
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_main_nouns.xml" value="0.18" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_main_quiz.xml" value="0.14" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_no_connection.xml" value="0.18" />
-        <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_quiz_detail.xml" value="0.22" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_quiz_detail.xml" value="0.2" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_quiz_result.xml" value="0.16" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_theory.xml" value="0.22" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/item_theory.xml" value="0.14" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/layout_checking_buttons.xml" value="0.18" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_flag.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_flag_argentina.xml" value="0.1" />
+        <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17135416666666667" />
       </map>
     </option>
   </component>

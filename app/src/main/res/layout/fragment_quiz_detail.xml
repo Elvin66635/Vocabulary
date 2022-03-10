@@ -190,7 +190,7 @@
 
 
         <ImageView
-            android:layout_marginStart="102dp"
+            android:layout_marginStart="112dp"
             android:layout_marginTop="5dp"
             android:id="@+id/ic_right"
             android:src="@drawable/ic_right"

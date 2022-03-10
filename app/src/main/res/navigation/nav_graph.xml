@@ -6,7 +6,7 @@
     app:startDestination="@id/mainQuizFragment">
     <fragment
         android:id="@+id/mainQuizFragment"
-        android:name="com.example.vocabulary.fragments.MainNounsFragment"
+        android:name="com.english_dev_elv.vocabulary.fragments.MainNounsFragment"
         android:label="fragment_main_quiz"
         tools:layout="@layout/fragment_main_nouns" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/quizDetailFragment"
-        android:name="com.example.vocabulary.fragments.QuizDetailFragment"
+        android:name="com.english_dev_elv.vocabulary.fragments.QuizDetailFragment"
         android:label="fragment_quiz_detail"
         tools:layout="@layout/fragment_quiz_detail" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/exampleDetailFragment"
-        android:name="com.example.vocabulary.fragments.ResultQuizFragment"
+        android:name="com.english_dev_elv.vocabulary.fragments.ResultQuizFragment"
         android:label="fragment_example_detail"
         tools:layout="@layout/fragment_quiz_result" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/theoryFragment"
-        android:name="com.example.vocabulary.fragments.TheoryFragment"
+        android:name="com.english_dev_elv.vocabulary.fragments.TheoryFragment"
         android:label="fragment_theory"
         tools:layout="@layout/fragment_theory" >
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/noConnection"
-        android:name="com.example.vocabulary.NoConnectionFragment"
+        android:name="com.english_dev_elv.vocabulary.NoConnectionFragment"
         android:label="fragment_no_connection"
         tools:layout="@layout/fragment_no_connection" >
         <action
