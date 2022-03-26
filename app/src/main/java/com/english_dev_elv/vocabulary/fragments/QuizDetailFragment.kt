@@ -1,6 +1,8 @@
 package com.english_dev_elv.vocabulary.fragments
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
@@ -18,6 +20,8 @@ import androidx.fragment.app.Fragment
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -61,6 +65,29 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val exitBuilderDialog = AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
+                exitBuilderDialog.setTitle("Выход")
+                exitBuilderDialog.setMessage("Вы действительно хотите выйти?")
+                exitBuilderDialog.setIcon(R.drawable.ic_exit_dialog)
+                exitBuilderDialog.setPositiveButton("Да"){
+                        Dialog, which->
+
+                    findNavController().navigate(
+                        R.id.action_quizDetailFragment_to_mainQuizFragment)
+                }
+
+                exitBuilderDialog.setNegativeButton("Нет"){
+                        Dialog, which->
+                    Toast.makeText(requireContext(), "You want exit?", Toast.LENGTH_LONG).show()
+                }
+                val createBuild = exitBuilderDialog.create()
+                createBuild.show()
+            }
+        })
 
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window: Window = requireActivity().window
@@ -195,6 +222,8 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
 
         }
 
+
+
     }
 
     private fun selectedOptionView(tv: TextView, selectedOptionNumber: Int) {
@@ -283,6 +312,7 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
         binding.trueView.visibility = View.GONE
         binding.falseView.visibility = View.GONE
     }
+
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {

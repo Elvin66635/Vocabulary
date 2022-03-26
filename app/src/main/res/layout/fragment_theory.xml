@@ -93,9 +93,9 @@
         android:id="@+id/example_text_theory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="60dp"
         android:fontFamily="@font/vollkorn_italic"
         android:gravity="center"
         android:maxLines="3"
@@ -114,10 +114,10 @@
         android:id="@+id/translate_text_theory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="4dp"
         android:fontFamily="@font/vollkorn_italic"
         android:gravity="center"
         android:lines="2"
@@ -131,5 +131,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/example_text_theory"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/translate_image"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/example_text_theory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toEndOf="@+id/example_text_theory"
+        app:layout_constraintTop_toBottomOf="@+id/theory_translate"
+        app:srcCompat="@drawable/ic_translating" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

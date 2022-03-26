@@ -1,6 +1,7 @@
 package com.english_dev_elv.vocabulary.fragments
 
 import android.animation.ValueAnimator
+import android.app.AlertDialog
 import android.content.res.Resources
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -11,6 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
@@ -52,7 +55,30 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
         binding.submitTheoryBtn.setOnClickListener(this)
         binding.theorySpeach.setOnClickListener(this)
         binding.exampleTextTheory.setOnClickListener(this)
+        binding.translateImage.setOnClickListener(this)
         setQuestion()
+
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                val exitBuilderDialog = AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
+                exitBuilderDialog.setTitle("Выход")
+                exitBuilderDialog.setMessage("Вы действительно хотите выйти?")
+                exitBuilderDialog.setIcon(R.drawable.ic_exit_dialog)
+                exitBuilderDialog.setPositiveButton("Да"){
+                        Dialog, which->
+
+                    findNavController().navigate(
+                        R.id.action_theoryFragment_to_mainQuizFragment)
+                }
+
+                exitBuilderDialog.setNegativeButton("Нет"){
+                        Dialog, which->
+                }
+                val createBuild = exitBuilderDialog.create()
+                createBuild.show()
+            }
+        })
 
 /*
         binding.listHorizontal.addOnScrollListener(CenterScrollListener())
@@ -121,6 +147,13 @@ class TheoryFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInitList
                 speakOut()
             }
             R.id.example_text_theory -> {
+                if (!binding.translateTextTheory.isVisible) {
+                    showTranslateText()
+                } else {
+                    hideTranslateText()
+                }
+            }
+            R.id.translate_image -> {
                 if (!binding.translateTextTheory.isVisible) {
                     showTranslateText()
                 } else {

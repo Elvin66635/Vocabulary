@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_quizDetailFragment_to_exampleDetailFragment"
             app:destination="@id/exampleDetailFragment" />
+        <action
+            android:id="@+id/action_quizDetailFragment_to_mainQuizFragment"
+            app:destination="@id/mainQuizFragment" />
     </fragment>
     <fragment
         android:id="@+id/exampleDetailFragment"
@@ -48,6 +51,9 @@
             app:destination="@id/quizDetailFragment" />
         <action
             android:id="@+id/action_theoryFragment_to_mainQuizFragment"
+            app:destination="@id/mainQuizFragment" />
+        <action
+            android:id="@+id/action_theoryFragment_to_mainQuizFragment2"
             app:destination="@id/mainQuizFragment" />
     </fragment>
     <fragment
