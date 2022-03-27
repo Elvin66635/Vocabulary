@@ -22,7 +22,10 @@ import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.os.Environment
 import android.view.*
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.english_dev_elv.vocabulary.databinding.FragmentMainNounsBinding
@@ -79,7 +82,8 @@ class MainNounsFragment : Fragment() {
                 .noAutoDismiss()
                 .customView(R.layout.layout_checking_buttons)
 
-            dialog.findViewById<Button>(R.id.testBtn).setOnClickListener {
+
+            dialog.findViewById<ConstraintLayout>(R.id.testModeConstraint).setOnClickListener {
                 val dataBundle = Bundle()
                 dataBundle.putString("image", topic.image)
                 dataBundle.putString("title", topic.title)
@@ -94,7 +98,7 @@ class MainNounsFragment : Fragment() {
                 dialog.dismiss()
             }
 
-            dialog.findViewById<Button>(R.id.theoryBtn).setOnClickListener {
+            dialog.findViewById<ConstraintLayout>(R.id.theoryModeConstraint).setOnClickListener {
                 findNavController().navigate(
                     R.id.action_mainQuizFragment_to_theoryFragment,
                     dataBundle

@@ -4,61 +4,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#55FBF4DF">
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:background="#56FFF7D3">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/theoryBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:drawableTop="@drawable/ic_theory_64"
-        android:padding="20dp"
-        android:text="Теория"
-        app:backgroundTint="@color/orange"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/testBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:drawableTop="@drawable/ic_quiz_64"
-        android:padding="20dp"
-        android:text="Тест"
-        app:backgroundTint="@color/blue"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toStartOf="parent" />
-
- <!--   <RatingBar
-        android:id="@+id/rate_stars"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:numStars="3"
-        android:progressBackgroundTint="#F8CC3D"
-        android:theme="@style/RatingBar"
-        app:layout_constraintBottom_toTopOf="@+id/testBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />-->
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/selectModeTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
         android:fontFamily="@font/assistant_bold"
         android:text="Выберете режим"
         android:textColor="#F7434242"
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/theoryBtn"
+        app:layout_constraintBottom_toTopOf="@+id/theoryModeConstraint"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/testModeConstraint"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+        <ImageView
+            android:id="@+id/testMode"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_test_logo"
+            android:text="Тест"
+            app:backgroundTint="@color/blue"
+            app:cornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.533"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Тест"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testMode" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/theoryModeConstraint"
+        android:layout_width="120dp"
+        android:layout_height="140dp"
+        android:layout_marginStart="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/theoryMode"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_theory_logo"
+            android:text="Теория"
+            app:backgroundTint="@color/orange"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Theory"
+            app:layout_constraintEnd_toEndOf="@+id/theoryMode"
+            app:layout_constraintStart_toStartOf="@+id/theoryMode"
+            app:layout_constraintTop_toBottomOf="@+id/theoryMode" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--   <RatingBar
+           android:id="@+id/rate_stars"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:clickable="false"
+           android:numStars="3"
+           android:progressBackgroundTint="#F8CC3D"
+           android:theme="@style/RatingBar"
+           app:layout_constraintBottom_toTopOf="@+id/testBtn"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent" />-->
