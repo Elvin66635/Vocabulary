@@ -7,11 +7,12 @@ import java.lang.IllegalArgumentException
 
 class TopicViewModelFactory constructor(private val repository: TopicsRepository) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(TopicViewModel::class.java)) {
             TopicViewModel(this.repository) as T
         } else {
             throw IllegalArgumentException("ViewModel Not Found")
         }
     }
+
 }

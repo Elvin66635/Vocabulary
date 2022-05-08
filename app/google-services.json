@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "719119820122",
+    "project_id": "vocabulary-72b5c",
+    "storage_bucket": "vocabulary-72b5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719119820122:android:21bef2da76775ba6257f63",
+        "android_client_info": {
+          "package_name": "com.english_dev_elv.vocabulary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719119820122-09ahf5roharedf8gmehgnv3720qq37mu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmkMsaZe7vHIev-LGap8Ek4j4fiCURzTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "719119820122-09ahf5roharedf8gmehgnv3720qq37mu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

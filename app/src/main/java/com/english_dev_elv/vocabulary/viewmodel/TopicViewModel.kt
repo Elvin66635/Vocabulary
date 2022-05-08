@@ -3,6 +3,7 @@ package com.english_dev_elv.vocabulary.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.english_dev_elv.vocabulary.model.Phonetic
 import com.english_dev_elv.vocabulary.model.Topic
 import com.english_dev_elv.vocabulary.repository.TopicsRepository
 import retrofit2.Call
@@ -13,13 +14,8 @@ private const val TAG = "TopicViewModel"
 class TopicViewModel(private val repository: TopicsRepository) : ViewModel() {
 
     val topics = MutableLiveData<List<Topic>>()
+    val phonetics = MutableLiveData<List<Phonetic>>()
     val errorMessage = MutableLiveData<String>()
-
-
-
-
-
-
 
         fun getTopics() {
             val response = repository.getTopics()
@@ -40,6 +36,21 @@ class TopicViewModel(private val repository: TopicsRepository) : ViewModel() {
                     errorMessage.postValue(t.message)
                     Log.d(TAG, "onFailure: ${t.message}")
                 }
+
+        })
+    }
+
+    fun getPhonetics() {
+        val response = repository.getPhonetics()
+        response.enqueue(object : Callback<List<Phonetic>>{
+            override fun onResponse(call: Call<List<Phonetic>>, response: Response<List<Phonetic>>) {
+                phonetics.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<List<Phonetic>>, t: Throwable) {
+                errorMessage.postValue(t.message)
+                Log.d(TAG, "onFailure: ${t.message}")
+            }
 
         })
     }

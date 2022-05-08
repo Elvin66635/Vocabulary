@@ -69,9 +69,8 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                val exitBuilderDialog = AlertDialog.Builder(requireContext(), R.style.AlertDialogCustom)
-                exitBuilderDialog.setTitle("Выход")
-                exitBuilderDialog.setMessage("Вы действительно хотите выйти?")
+                val exitBuilderDialog = AlertDialog.Builder(requireContext(), R.style.RoundedCornersDialog)
+                exitBuilderDialog.setTitle("Вы действительно хотите выйти?")
                 exitBuilderDialog.setIcon(R.drawable.ic_exit_dialog)
                 exitBuilderDialog.setPositiveButton("Да"){
                         Dialog, which->
@@ -88,12 +87,6 @@ class QuizDetailFragment : Fragment(), View.OnClickListener, TextToSpeech.OnInit
                 createBuild.show()
             }
         })
-
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window: Window = requireActivity().window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = Color.BLUE
-        }*/
 
         title = arguments?.getString("title").toString()
         question = arguments?.getString("question").toString()

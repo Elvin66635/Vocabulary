@@ -1,5 +1,6 @@
 package com.english_dev_elv.vocabulary.network
 
+import com.english_dev_elv.vocabulary.model.Phonetic
 import com.english_dev_elv.vocabulary.model.Topic
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -13,14 +14,15 @@ interface API {
     @GET("topic.json")
     fun getTopics(): Call<List<Topic>>
 
+    @GET("phonetic.json")
+    fun getPhonetics(): Call<List<Phonetic>>
+
 
     companion object {
 
         var retrofitService: API? = null
 
         fun getInstance(): API {
-
-
 
             if (retrofitService == null) {
                 val retrofit = Retrofit.Builder()

@@ -9,6 +9,7 @@
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/dark_background.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/default_option_border.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/dialog_bg.xml" value="0.17135416666666667" />
+        <entry key="..\:/Vocabulary/app/src/main/res/drawable/edittext_round.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/gradient_background.xml" value="0.1405982905982906" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/ic_flag_argentina_background.xml" value="0.17135416666666667" />
@@ -21,16 +22,24 @@
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/round_button.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/round_button_theory.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/round_corner_for_image.xml" value="0.17135416666666667" />
+        <entry key="..\:/Vocabulary/app/src/main/res/drawable/rounded_select_photo_button.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/selected_option_border.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/text_line.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/drawable/volume_background.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/font/aguafina_script.xml" value="0.15555555555555556" />
+        <entry key="..\:/Vocabulary/app/src/main/res/font/alegreya_sc_bold_italic.xml" value="0.18958333333333333" />
         <entry key="..\:/Vocabulary/app/src/main/res/font/button_font.xml" value="0.18958333333333333" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_chat.xml" value="0.25" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_example_rec_main.xml" value="0.11" />
-        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_main_quiz_list.xml" value="0.1" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_nouns.xml" value="0.10733695652173914" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_phonetic.xml" value="0.15104166666666666" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_phonetics.xml" value="0.25" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_phonetics_detail.xml" value="0.22" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_quiz_questions.xml" value="0.22" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_registration.xml" value="0.2" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_result.xml" value="0.1" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/checking_layout.xml" value="0.1322463768115942" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/custom_row.xml" value="0.2" />
@@ -42,8 +51,11 @@
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_quiz_detail.xml" value="0.2" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_quiz_result.xml" value="0.16" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/fragment_theory.xml" value="0.5" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/item_phonetics.xml" value="0.2890243902439024" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/item_theory.xml" value="0.14" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/layout_checking_buttons.xml" value="0.22" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/phonetic_words_example.xml" value="0.4803767660910518" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/phonetic_words_texts.xml" value="0.33" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_flag.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_flag_argentina.xml" value="0.1" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17135416666666667" />

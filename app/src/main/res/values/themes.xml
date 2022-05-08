@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Vocabulary" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/status_bar_color</item>
+        <item name="colorPrimary">#7C0080FF</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -14,6 +14,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
@@ -24,5 +26,12 @@
     <style name="ThemeOverlay.Vocabulary.FullscreenContainer" parent="">
         <item name="fullscreenBackgroundColor">@color/light_blue_600</item>
         <item name="fullscreenTextColor">@color/light_blue_A200</item>
+    </style>
+
+    <style name="Theme.Vocabulary.Fullscreen" parent="Theme.Vocabulary">
+        <item name="android:actionBarStyle">@style/Widget.Theme.Vocabulary.ActionBar.Fullscreen
+        </item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
     </style>
 </resources>

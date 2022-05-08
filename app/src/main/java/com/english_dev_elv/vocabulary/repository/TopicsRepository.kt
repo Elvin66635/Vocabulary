@@ -4,4 +4,5 @@ import com.english_dev_elv.vocabulary.network.API
 
 class TopicsRepository(private val topicsApi: API) {
     fun getTopics() = topicsApi.getTopics()
+    fun getPhonetics() = topicsApi.getPhonetics()
 }

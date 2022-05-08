@@ -1,5 +1,6 @@
 package com.english_dev_elv.vocabulary.adapter
 
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil

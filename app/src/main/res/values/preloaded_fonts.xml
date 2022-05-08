@@ -4,16 +4,20 @@
         <item>@font/aguafina_script</item>
         <item>@font/alegreya_sc_bold_italic</item>
         <item>@font/alegreya_sc_italic</item>
+        <item>@font/alike</item>
         <item>@font/amiko_semibold</item>
         <item>@font/andada</item>
+        <item>@font/arapey</item>
         <item>@font/arbutus_slab</item>
         <item>@font/arvo_bold</item>
         <item>@font/asap_medium</item>
         <item>@font/assistant_bold</item>
         <item>@font/bree_serif</item>
+        <item>@font/karla</item>
         <item>@font/quattrocento_sans_bold</item>
         <item>@font/source_serif_pro_semibold</item>
         <item>@font/unlock</item>
         <item>@font/vollkorn_italic</item>
+        <item>@font/yantramanav_medium</item>
     </array>
 </resources>
