@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.english_dev_elv.vocabulary.MainActivity
 import com.english_dev_elv.vocabulary.databinding.ActivityRegistrationBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -120,8 +121,13 @@ class RegistrationActivity : AppCompatActivity() {
         val user = User(uid, binding.usernameEdittextRegistration.text.toString(), profileImageUrl)
         ref.setValue(user)
             .addOnSuccessListener {
-                Log.d(TAG, "Saved")
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
             }
     }
 }
-class User(val uid: String, val username:String, val profileImageName:String)
+
+class User(val uid: String, val username: String, val profileImageName: String) {
+    constructor(): this("","", "")
+}

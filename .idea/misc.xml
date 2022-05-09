@@ -34,6 +34,7 @@
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_main_quiz_list.xml" value="0.1" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_new_message.xml" value="0.12771739130434784" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_nouns.xml" value="0.10733695652173914" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_phonetic.xml" value="0.15104166666666666" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/activity_phonetics.xml" value="0.25" />
@@ -56,6 +57,8 @@
         <entry key="..\:/Vocabulary/app/src/main/res/layout/layout_checking_buttons.xml" value="0.22" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/phonetic_words_example.xml" value="0.4803767660910518" />
         <entry key="..\:/Vocabulary/app/src/main/res/layout/phonetic_words_texts.xml" value="0.33" />
+        <entry key="..\:/Vocabulary/app/src/main/res/layout/user_row_new_message.xml" value="0.25" />
+        <entry key="..\:/Vocabulary/app/src/main/res/menu/nav_message_menu.xml" value="0.22" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_flag.xml" value="0.17135416666666667" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_flag_argentina.xml" value="0.1" />
         <entry key="..\:/Vocabulary/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.17135416666666667" />
